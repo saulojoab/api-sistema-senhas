@@ -1,5 +1,5 @@
-const queue = require("./queue");
+const orders = require("./orders");
 
 module.exports = {
-  queue,
+  orders,
 };

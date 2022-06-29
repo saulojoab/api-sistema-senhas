@@ -1,6 +1,7 @@
 const HttpStatus = require("http-status-codes"); // Pra deixar os status da resposta mais entendível.
 
-let queueData = [{ name: "Saulo", selectedOption: "teste" }];
+let queueData = [];
+let current;
 
 module.exports = {
   index() {
@@ -29,16 +30,24 @@ module.exports = {
     return created;
   },
 
-  delete() {
-    const queueItem = queueData.filter((item) => item.id === req.params.id);
+  delete(id) {
+    const newData = queueData;
+    newData.splice(newData.indexOf(id), 1);
 
-    if (!queueItem) {
-      return;
-    }
-
-    const data = queueData.filter((item) => item.id !== req.params.id);
-    queueData = [...data];
+    queueData = newData;
 
     return "ok";
+  },
+
+  makeCurrent(id) {
+    if (typeof id === "number") {
+      current = id;
+    }
+
+    if (typeof current === "number") {
+      return current;
+    }
+
+    return null;
   },
 };
